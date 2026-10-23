@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# AI agent config (auto-generated, not for public repos)
+AGENTS.md
+CLAUDE.md
+
+# Misc
+*.log

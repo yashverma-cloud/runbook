@@ -1,0 +1,757 @@
+/*
+ * Cloud runbook. Tokens, type and rules follow the portfolio
+ * (yashverma-cloud.github.io): six colours, Overpass, 0 radius, hairline rows,
+ * no gradient, glow, shadow or blur. Signal amber marks cautions and focus only.
+ */
+
+/* --- Fonts (self-hosted, SIL OFL 1.1, see fonts/) ---------------------- */
+
+@font-face {
+  font-family: 'Overpass Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('fonts/overpass-latin-variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Overpass Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('fonts/overpass-mono-latin-400.woff2') format('woff2');
+}
+
+/* --- Tokens -------------------------------------------------------------- */
+
+:root {
+  --deep: #0c2442; /* code, footer, inputs */
+  --blueprint: #15345c; /* page ground */
+  --rule: #5580b0; /* borders and interactive edges. 3.04:1 on blueprint */
+  --line: #eaf1f4; /* primary text. 10.96:1 on blueprint */
+  --muted: #8fa9c4; /* secondary text. 5.15:1 on blueprint, 6.42:1 on deep */
+  --signal: #f5a524; /* cautions and focus only. 6.13:1 on blueprint */
+  --rule-faint: color-mix(in srgb, var(--rule) 45%, transparent);
+
+  --font-sans: 'Overpass Variable', 'Overpass', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --font-mono: 'Overpass Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Mono', monospace;
+
+  --fs-display-l: clamp(1.875rem, 1.55rem + 1.1vw, 2.5rem);
+  --fs-display-m: clamp(1.4375rem, 1.24rem + 0.55vw, 1.75rem);
+  --fs-body-l: clamp(1.1875rem, 1.1rem + 0.28vw, 1.3125rem);
+  --fs-body: clamp(1.0625rem, 1.03rem + 0.1vw, 1.125rem);
+  --fs-body-s: clamp(0.9375rem, 0.93rem + 0.05vw, 0.96875rem);
+  --fs-micro: clamp(0.8125rem, 0.81rem + 0.04vw, 0.84375rem);
+
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+
+  --content-max: 1120px;
+  --gutter: 1.25rem;
+  --header-h: 52px;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--s-4));
+}
+
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--blueprint);
+  color: var(--line);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display-l);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: var(--fs-display-m);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-color: var(--line);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+kbd {
+  font-size: 0.9em;
+  padding: 0 0.3em;
+  border: 1px solid var(--rule);
+  color: var(--line);
+}
+
+.micro {
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.standfirst {
+  font-size: var(--fs-body-l);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--s-2);
+  top: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--deep);
+  border: 1px solid var(--rule);
+  color: var(--line);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* --- Header and footer --------------------------------------------------- */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: var(--blueprint);
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.bar-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.wordmark {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.wordmark a {
+  text-decoration: none;
+}
+
+.crumb {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.bar nav ul {
+  display: flex;
+  gap: var(--s-6);
+  list-style: none;
+  padding: 0;
+}
+
+.bar nav a {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.bar nav a:hover,
+.bar nav a[aria-current='page'] {
+  color: var(--line);
+}
+
+.bar nav a[aria-current='page'] {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+}
+
+@media (max-width: 30rem) {
+  .crumb {
+    display: none;
+  }
+
+  .bar nav ul {
+    gap: var(--s-4);
+  }
+}
+
+footer {
+  margin-top: var(--s-16);
+  background: var(--deep);
+  border-top: 1px solid var(--rule-faint);
+  padding-block: var(--s-8);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-6);
+  justify-content: space-between;
+}
+
+/* --- Intro and search ---------------------------------------------------- */
+
+main {
+  flex: 1 0 auto;
+}
+
+main:focus {
+  outline: none;
+}
+
+.intro {
+  padding-block: var(--s-12) var(--s-8);
+}
+
+.intro .standfirst {
+  margin-top: var(--s-4);
+}
+
+.search {
+  position: relative;
+  max-width: 46rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--s-4);
+  top: 14px;
+  z-index: 1;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.search input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--s-3) var(--s-4) var(--s-3) 3rem;
+  font: inherit;
+  /* 16px or more stops iOS zooming the page when the field takes focus. */
+  font-size: max(16px, var(--fs-body));
+  color: var(--line);
+  background: var(--deep);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.search input:hover {
+  border-color: var(--line);
+}
+
+.search input:focus-visible {
+  outline-offset: 0;
+}
+
+.search-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-2);
+  min-height: 1.4em;
+}
+
+/* Keyboard hints are noise on touch screens. */
+@media (hover: none) {
+  .hint {
+    display: none;
+  }
+}
+
+/* --- Layout -------------------------------------------------------------- */
+
+.layout {
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 56rem) {
+  .layout {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--s-12);
+    align-items: start;
+  }
+}
+
+/* --- Categories ---------------------------------------------------------- */
+
+.cat-select-label {
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.cats {
+  margin-bottom: var(--s-8);
+}
+
+#cat-select {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--s-2) var(--s-4);
+  font: inherit;
+  font-size: max(16px, var(--fs-body-s));
+  color: var(--line);
+  background: var(--deep);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+}
+
+.cat-list {
+  display: none;
+  list-style: none;
+  padding: 0;
+  border-top: 1px solid var(--rule-faint);
+}
+
+@media (min-width: 56rem) {
+  .cats {
+    margin-bottom: 0;
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-6));
+    max-height: calc(100dvh - var(--header-h) - var(--s-12));
+    overflow-y: auto;
+  }
+
+  .cat-select-label,
+  #cat-select {
+    display: none;
+  }
+
+  .cat-list {
+    display: block;
+  }
+}
+
+.cat-list li {
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.cat-list a {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding-block: var(--s-2);
+  font-size: var(--fs-body-s);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.cat-list a:hover {
+  color: var(--line);
+}
+
+.cat-list a[aria-current='page'] {
+  color: var(--line);
+  font-weight: 600;
+}
+
+.cat-list .n {
+  font-variant-numeric: tabular-nums;
+}
+
+.cat-list .group-start {
+  margin-top: var(--s-6);
+  border-top: 1px solid var(--rule-faint);
+}
+
+/* --- Views --------------------------------------------------------------- */
+
+.view {
+  min-width: 0;
+}
+
+/* Pages that open straight onto rows get a top rule; grouped pages have their h2 rule. */
+.view > .cmd:first-child,
+.pb-list,
+.steps {
+  border-top: 1px solid var(--rule-faint);
+}
+
+.group + .group {
+  margin-top: var(--s-12);
+}
+
+.group > h2 {
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.group > h2 a {
+  text-decoration: none;
+}
+
+.group > h2 .n {
+  margin-left: var(--s-2);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.empty {
+  padding-block: var(--s-8);
+  color: var(--muted);
+}
+
+/* --- Command rows -------------------------------------------------------- */
+
+.cmd {
+  padding-block: var(--s-6);
+  border-bottom: 1px solid var(--rule-faint);
+  /* Hundreds of rows: let the browser skip laying out the ones off-screen. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 14rem;
+}
+
+.cmd:target {
+  border-left: 2px solid var(--line);
+  padding-left: var(--s-4);
+  margin-left: calc(-1 * var(--s-4) - 2px);
+}
+
+.cmd h3 {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cmd h3 a {
+  text-decoration: none;
+}
+
+.cmd h3 a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+}
+
+.cmd .desc {
+  margin-top: var(--s-1);
+  font-size: var(--fs-body-s);
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.caution {
+  margin-top: var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--signal);
+  font-size: var(--fs-body-s);
+  max-width: 70ch;
+}
+
+.caution strong {
+  color: var(--signal);
+  font-weight: 700;
+}
+
+.note {
+  margin-top: var(--s-2);
+  font-size: var(--fs-body-s);
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.code {
+  margin-top: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--deep);
+  border: 1px solid var(--rule);
+  color: var(--line);
+  font-size: var(--fs-body-s);
+  line-height: 1.6;
+  /* Wrap long commands rather than scroll: on a phone, sideways scrolling hides flags. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.code .w {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.ph {
+  color: var(--muted);
+  text-decoration: underline dotted var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.ph.filled {
+  color: var(--line);
+  text-decoration: underline solid var(--rule);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--s-2) var(--s-4);
+  font: inherit;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--line);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--line);
+}
+
+.btn[aria-expanded='true'] {
+  border-color: var(--line);
+}
+
+.tags {
+  margin-left: auto;
+  font-weight: 400;
+}
+
+@media (max-width: 34rem) {
+  .tags {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
+.fill {
+  margin-top: var(--s-3);
+  padding: var(--s-4);
+  border: 1px solid var(--rule-faint);
+}
+
+.fill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--s-3) var(--s-4);
+}
+
+.fill label {
+  display: block;
+}
+
+.fill label span {
+  display: block;
+  margin-bottom: var(--s-1);
+  font-family: var(--font-mono);
+}
+
+.fill input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--line);
+  background: var(--deep);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+}
+
+.fill p {
+  margin-top: var(--s-3);
+}
+
+/* --- Playbooks ----------------------------------------------------------- */
+
+.pb-list {
+  list-style: none;
+  padding: 0;
+}
+
+.pb-list li {
+  padding-block: var(--s-6);
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.pb-list h2 {
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.pb-list p {
+  margin-top: var(--s-1);
+  font-size: var(--fs-body-s);
+  color: var(--muted);
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+}
+
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding: var(--s-6) 0 var(--s-6) 2.5rem;
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: var(--s-6);
+  font-weight: 700;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.steps .step-text {
+  max-width: 70ch;
+}
+
+.steps .ref {
+  margin-top: var(--s-2);
+}
+
+/* A command inside a step is part of the step, not a row of its own. */
+.steps .cmd {
+  padding-block: 0;
+  border-bottom: 0;
+  content-visibility: visible;
+}
+
+.steps .cmd h3 {
+  font-size: var(--fs-body-s);
+}
+
+/* --- Without JavaScript ----------------------------------------------------
+   Everything still reads; the controls that need a script are hidden, and the
+   category list replaces the select on phones. */
+
+.noscript {
+  margin-top: var(--s-4);
+}
+
+@media (scripting: none) {
+  .search,
+  .actions .btn,
+  .cat-select-label,
+  #cat-select {
+    display: none;
+  }
+
+  .cat-list {
+    display: block;
+  }
+}
+
+/* --- Motion -------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

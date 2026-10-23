@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/kubernetes/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/helm/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/karpenter/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/aws/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/gcp/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/terraform/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/docker/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/git/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/ci-cd/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/ansible/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/linux/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/networking/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/security/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/databases/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/observability/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/debugging/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/crashloop/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/node-not-ready/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/disk-full/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/terraform-lock/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/bad-release/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/slow-endpoint/</loc></url>
+  <url><loc>https://yashverma-cloud.github.io/yv-cloud-runbook/playbooks/tls-expiry/</loc></url>
+</urlset>
