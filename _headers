@@ -1,0 +1,17 @@
+# Cloudflare Pages response headers. The runbook loads nothing from other hosts and has no
+# inline scripts, so the policy is 'self' throughout.
+
+/*
+  Strict-Transport-Security: max-age=86400
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+# The production pages.dev address serves the same site; keep it out of search results.
+# Preview deployments get this header from Pages already.
+https://yashverma-runbook.pages.dev/*
+  X-Robots-Tag: noindex

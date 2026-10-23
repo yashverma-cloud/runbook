@@ -2,7 +2,7 @@
 
 A searchable reference of generic DevOps, SRE and cloud commands, with short playbooks for common incidents.
 
-Live: https://yashverma-cloud.github.io/yv-cloud-runbook/
+Live: https://runbook.yashverma.cloud/
 
 - Search across titles, descriptions, commands and tags (`/` or `Ctrl+K` to focus, `Esc` to clear).
 - A page for every category (`/kubernetes/`) and playbook (`/playbooks/disk-full/`), and a link for every command (`/kubernetes/#k8s-drain-node`). Searches can be shared too (`/?q=drain`).
@@ -20,10 +20,11 @@ Live: https://yashverma-cloud.github.io/yv-cloud-runbook/
 | `tools/build.mjs` | Writes the pages below from the data, and checks the data |
 | `index.html`, `<category>/`, `playbooks/`, `404.html`, `sitemap.xml` | Generated: do not edit by hand |
 | `app.js` | Search, copy, fill-in placeholders and keyboard shortcuts on top of the pages |
-| `style.css` | All styles; the colours and type follow https://yashverma-cloud.github.io/ |
+| `style.css` | All styles; the colours and type follow https://yashverma.cloud/ |
 | `fonts/` | Overpass and Overpass Mono, self-hosted (SIL OFL 1.1) |
+| `_headers` | Security and caching headers for Cloudflare Pages |
 
-No third-party hosts and no dependencies. The generated pages are committed, so GitHub Pages serves the files as they are.
+No third-party hosts and no dependencies. The generated pages are committed, so Cloudflare Pages serves the files as they are.
 
 ## Adding a command
 
@@ -58,7 +59,11 @@ Then open http://localhost:8000/. Opened straight from disk, the pages read fine
 
 ## Deploy
 
-A push to `main` deploys the repository root to GitHub Pages through `.github/workflows/deploy.yml`. The workflow first runs `node tools/build.mjs --check` and stops if the committed pages don't match the data.
+Cloudflare Pages deploys the repository root through its Git integration: a merge to `main` deploys to production, and every pull request gets a preview deployment, linked from its checks. Its build command is `node tools/build.mjs --check`, so a deploy stops if the committed pages don't match the data; `.github/workflows/pr-check.yml` runs the same check on every pull request.
+
+To roll back, roll back to the previous production deployment in the Cloudflare dashboard, then revert the commit through a pull request.
+
+The runbook used to live at `yashverma-cloud.github.io/yv-cloud-runbook/`. Those addresses redirect to the same pages here.
 
 ## Licence
 
