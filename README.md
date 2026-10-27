@@ -24,7 +24,7 @@ Live: https://runbook.yashverma.cloud/
 | `fonts/` | Overpass and Overpass Mono, self-hosted (SIL OFL 1.1) |
 | `_headers` | Security and caching headers for Cloudflare Pages |
 
-No third-party hosts and no dependencies. The generated pages are committed, so Cloudflare Pages serves the files as they are.
+No dependencies, and no third-party hosts except Cloudflare Web Analytics (injected by Pages; allowed in `_headers`). The generated pages are committed, so Cloudflare Pages serves the files as they are.
 
 ## Adding a command
 
