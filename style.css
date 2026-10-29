@@ -1,49 +1,88 @@
 /*
- * Cloud runbook. Tokens, type and rules follow the portfolio
- * (yashverma.cloud): six colours, Overpass, 0 radius, hairline rows,
- * no gradient, glow, shadow or blur. Signal amber marks cautions and focus only.
+ * Cloud runbook, in the Altitude system of yashverma.cloud.
+ * Tokens, colours, type roles and focus copied from yashverma.cloud src/system at commit 8dad97a
+ * (tokens.css, fonts.css, system.css); there is no build-time link to that repo. To follow a
+ * change there, copy the values again and update the commit above.
+ * Night ground, hairline rules, radius 0, no gradient, glow, shadow or motion. Amber is for
+ * cautions only.
  */
 
 /* --- Fonts (self-hosted, SIL OFL 1.1, see fonts/) ---------------------- */
 
+/* Archivo, trimmed for this site: weight 340 to 700 at normal width (the portfolio's file also
+   carries 200 to 340 and the expanded width, which the runbook does not use). */
 @font-face {
-  font-family: 'Overpass Variable';
+  font-family: 'Archivo';
   font-style: normal;
   font-display: swap;
-  font-weight: 100 900;
-  src: url('fonts/overpass-latin-variable.woff2') format('woff2-variations');
+  font-weight: 340 700;
+  src: url('fonts/archivo-latin-wght.woff2') format('woff2-variations');
 }
 
 @font-face {
-  font-family: 'Overpass Mono';
+  font-family: 'B612 Mono';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('fonts/overpass-mono-latin-400.woff2') format('woff2');
+  src: url('fonts/b612-mono-latin-400.woff2') format('woff2');
+}
+
+/* Metric-matched fallbacks, so the swap to the real face moves no line. Archivo: 0.4390 em
+   average advance, ascender 0.878, descender 0.210. B612 Mono: 0.65 em advance. */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo');
+  size-adjust: 99.46%;
+  ascent-override: 88.28%;
+  descent-override: 21.11%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback Android';
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 98.69%;
+  ascent-override: 88.96%;
+  descent-override: 21.28%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'B612 Mono Fallback';
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine');
+  size-adjust: 108.33%;
+  ascent-override: 89.08%;
+  descent-override: 23.08%;
+  line-gap-override: 0%;
 }
 
 /* --- Tokens -------------------------------------------------------------- */
 
 :root {
-  --deep: #0c2442; /* code, footer, inputs */
-  --blueprint: #15345c; /* page ground */
-  --rule: #5580b0; /* borders and interactive edges. 3.04:1 on blueprint */
-  --line: #eaf1f4; /* primary text. 10.96:1 on blueprint */
-  --muted: #8fa9c4; /* secondary text. 5.15:1 on blueprint, 6.42:1 on deep */
-  --signal: #f5a524; /* cautions and focus only. 6.13:1 on blueprint */
-  --rule-faint: color-mix(in srgb, var(--rule) 45%, transparent);
+  color-scheme: dark;
 
-  --font-sans: 'Overpass Variable', 'Overpass', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', sans-serif;
-  --font-mono: 'Overpass Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Mono', monospace;
+  --night: #040c1f; /* page ground, header, footer */
+  --deck: #0b1d3e; /* code, inputs, the fill-in panel */
+  --ink: #eef3f6; /* primary text */
+  --ink-2: #b8c7d7; /* secondary text */
+  --ink-3: #93a8bf; /* tertiary text: counts, tags, hints */
+  --rule: #5f82ab; /* control edges and strong rules */
+  --rule-faint: rgba(214, 228, 240, 0.18); /* hairlines between rows */
+  --sun: #f5a524; /* cautions only */
 
-  --fs-display-l: clamp(1.875rem, 1.55rem + 1.1vw, 2.5rem);
+  --font-sans: 'Archivo', 'Archivo Fallback', 'Archivo Fallback Android', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'B612 Mono', 'B612 Mono Fallback', ui-monospace, 'SFMono-Regular', 'Cascadia Mono',
+    monospace;
+
+  --fs-display-l: clamp(1.875rem, 1.45rem + 1.5vw, 3rem);
   --fs-display-m: clamp(1.4375rem, 1.24rem + 0.55vw, 1.75rem);
   --fs-body-l: clamp(1.1875rem, 1.1rem + 0.28vw, 1.3125rem);
   --fs-body: clamp(1.0625rem, 1.03rem + 0.1vw, 1.125rem);
   --fs-body-s: clamp(0.9375rem, 0.93rem + 0.05vw, 0.96875rem);
   --fs-micro: clamp(0.8125rem, 0.81rem + 0.04vw, 0.84375rem);
 
+  /* A reference tool is denser than the portfolio, so its spacing steps are fixed. */
   --s-1: 0.25rem;
   --s-2: 0.5rem;
   --s-3: 0.75rem;
@@ -53,15 +92,11 @@
   --s-12: 3rem;
   --s-16: 4rem;
 
-  --content-max: 1120px;
-  --gutter: 1.25rem;
+  --w-hairline: 1px;
+  --w-focus: 2px;
+  --margin: clamp(1.25rem, 0.3091rem + 4.1818vw, 7rem);
+  --content-max: 96rem;
   --header-h: 52px;
-}
-
-@media (min-width: 48rem) {
-  :root {
-    --gutter: 2.5rem;
-  }
 }
 
 /* --- Base ---------------------------------------------------------------- */
@@ -77,6 +112,7 @@
 }
 
 html {
+  background: var(--night);
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--header-h) + var(--s-4));
 }
@@ -85,10 +121,11 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--blueprint);
-  color: var(--line);
+  background: var(--night);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--fs-body);
+  font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -96,19 +133,21 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 700;
   text-wrap: balance;
 }
 
+/* The display line: light, tight, as on the portfolio. */
 h1 {
   font-size: var(--fs-display-l);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-weight: 340;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: var(--fs-display-m);
-  line-height: 1.25;
+  font-weight: 420;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
@@ -118,18 +157,21 @@ p {
 
 a {
   color: inherit;
+  text-decoration-line: underline;
   text-decoration-color: var(--rule);
-  text-underline-offset: 0.2em;
-  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: var(--w-hairline);
 }
 
 a:hover {
-  text-decoration-color: var(--line);
+  text-decoration-color: var(--ink);
 }
 
+/* An ink ring with a night ring inside it: it reads on the ground, on the deck and on a field. */
 :focus-visible {
-  outline: 2px solid var(--signal);
+  outline: var(--w-focus) solid var(--ink);
   outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--night);
 }
 
 code,
@@ -139,24 +181,25 @@ kbd {
 }
 
 kbd {
-  font-size: 0.9em;
+  font-size: 0.85em;
   padding: 0 0.3em;
-  border: 1px solid var(--rule);
-  color: var(--line);
+  border: var(--w-hairline) solid var(--rule);
+  color: var(--ink);
 }
 
 .micro {
   font-size: var(--fs-micro);
   line-height: 1.4;
   letter-spacing: 0.01em;
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 480;
+  color: var(--ink-3);
 }
 
 .standfirst {
   font-size: var(--fs-body-l);
   line-height: 1.5;
-  color: var(--muted);
+  font-weight: 360;
+  color: var(--ink-2);
   max-width: 46ch;
 }
 
@@ -164,7 +207,7 @@ kbd {
   width: 100%;
   max-width: var(--content-max);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: max(var(--margin), env(safe-area-inset-left)) max(var(--margin), env(safe-area-inset-right));
 }
 
 .visually-hidden {
@@ -185,9 +228,9 @@ kbd {
   top: var(--s-2);
   z-index: 100;
   padding: var(--s-2) var(--s-4);
-  background: var(--deep);
-  border: 1px solid var(--rule);
-  color: var(--line);
+  background: var(--night);
+  border: var(--w-hairline) solid var(--rule);
+  color: var(--ink);
   text-decoration: none;
   transform: translateY(-200%);
 }
@@ -202,9 +245,10 @@ kbd {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--header-h);
-  background: var(--blueprint);
-  border-bottom: 1px solid var(--rule-faint);
+  height: calc(var(--header-h) + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
+  background: var(--night);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
 }
 
 .bar-inner {
@@ -215,19 +259,33 @@ kbd {
   gap: var(--s-4);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  min-width: 0;
+}
+
+.home {
+  display: inline-flex;
+  color: var(--ink);
+}
+
+.monogram {
+  width: 1.5em;
+  height: 1.5em;
+  flex: none;
+}
+
 .wordmark {
-  font-weight: 700;
+  font-size: var(--fs-body-s);
+  font-weight: 480;
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
 
 .wordmark a {
   text-decoration: none;
-}
-
-.crumb {
-  font-weight: 600;
-  color: var(--muted);
 }
 
 .bar nav ul {
@@ -239,23 +297,23 @@ kbd {
 
 .bar nav a {
   font-size: var(--fs-micro);
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 480;
+  color: var(--ink-2);
   text-decoration: none;
 }
 
 .bar nav a:hover,
 .bar nav a[aria-current='page'] {
-  color: var(--line);
+  color: var(--ink);
 }
 
 .bar nav a[aria-current='page'] {
   text-decoration: underline;
-  text-decoration-color: var(--line);
+  text-decoration-color: var(--ink);
 }
 
-@media (max-width: 30rem) {
-  .crumb {
+@media (max-width: 40rem) {
+  .bar nav .out {
     display: none;
   }
 
@@ -266,9 +324,9 @@ kbd {
 
 footer {
   margin-top: var(--s-16);
-  background: var(--deep);
-  border-top: 1px solid var(--rule-faint);
-  padding-block: var(--s-8);
+  background: var(--night);
+  border-top: var(--w-hairline) solid var(--rule-faint);
+  padding-block: var(--s-8) max(var(--s-8), env(safe-area-inset-bottom));
 }
 
 .foot {
@@ -276,6 +334,16 @@ footer {
   flex-wrap: wrap;
   gap: var(--s-2) var(--s-6);
   justify-content: space-between;
+}
+
+footer .micro {
+  font-size: var(--fs-body-s);
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+footer p:last-child {
+  color: var(--ink-3);
 }
 
 /* --- Intro and search ---------------------------------------------------- */
@@ -286,10 +354,30 @@ main {
 
 main:focus {
   outline: none;
+  box-shadow: none;
 }
 
 .intro {
   padding-block: var(--s-12) var(--s-8);
+}
+
+/* The title stands on a horizon: a hairline runs from the end of the words to the margin. */
+.intro h1 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+}
+
+.intro h1::after {
+  content: '';
+  flex: 1 1 2rem;
+  border-top: var(--w-hairline) solid var(--rule);
+}
+
+@media (max-width: 40rem) {
+  .intro h1::after {
+    display: none;
+  }
 }
 
 .intro .standfirst {
@@ -306,7 +394,7 @@ main:focus {
   left: var(--s-4);
   top: 14px;
   z-index: 1;
-  color: var(--muted);
+  color: var(--ink-3);
   pointer-events: none;
 }
 
@@ -318,25 +406,21 @@ main:focus {
   font: inherit;
   /* 16px or more stops iOS zooming the page when the field takes focus. */
   font-size: max(16px, var(--fs-body));
-  color: var(--line);
-  background: var(--deep);
-  border: 1px solid var(--rule);
+  color: var(--ink);
+  background: var(--deck);
+  border: var(--w-hairline) solid var(--rule);
   border-radius: 0;
   -webkit-appearance: none;
   appearance: none;
 }
 
 .search input::placeholder {
-  color: var(--muted);
+  color: var(--ink-3);
   opacity: 1;
 }
 
 .search input:hover {
-  border-color: var(--line);
-}
-
-.search input:focus-visible {
-  outline-offset: 0;
+  border-color: var(--ink);
 }
 
 .search-meta {
@@ -388,9 +472,9 @@ main:focus {
   padding: var(--s-2) var(--s-4);
   font: inherit;
   font-size: max(16px, var(--fs-body-s));
-  color: var(--line);
-  background: var(--deep);
-  border: 1px solid var(--rule);
+  color: var(--ink);
+  background: var(--deck);
+  border: var(--w-hairline) solid var(--rule);
   border-radius: 0;
 }
 
@@ -398,7 +482,7 @@ main:focus {
   display: none;
   list-style: none;
   padding: 0;
-  border-top: 1px solid var(--rule-faint);
+  border-top: var(--w-hairline) solid var(--rule-faint);
 }
 
 @media (min-width: 56rem) {
@@ -408,6 +492,9 @@ main:focus {
     top: calc(var(--header-h) + var(--s-6));
     max-height: calc(100dvh - var(--header-h) - var(--s-12));
     overflow-y: auto;
+    /* Room inside the scroll box for the focus ring. */
+    padding: 4px;
+    margin: -4px;
   }
 
   .cat-select-label,
@@ -421,7 +508,7 @@ main:focus {
 }
 
 .cat-list li {
-  border-bottom: 1px solid var(--rule-faint);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
 }
 
 .cat-list a {
@@ -430,26 +517,29 @@ main:focus {
   gap: var(--s-2);
   padding-block: var(--s-2);
   font-size: var(--fs-body-s);
-  color: var(--muted);
+  color: var(--ink-2);
   text-decoration: none;
 }
 
 .cat-list a:hover {
-  color: var(--line);
+  color: var(--ink);
 }
 
 .cat-list a[aria-current='page'] {
-  color: var(--line);
+  color: var(--ink);
   font-weight: 600;
 }
 
 .cat-list .n {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 
 .cat-list .group-start {
   margin-top: var(--s-6);
-  border-top: 1px solid var(--rule-faint);
+  border-top: var(--w-hairline) solid var(--rule-faint);
 }
 
 /* --- Views --------------------------------------------------------------- */
@@ -462,7 +552,7 @@ main:focus {
 .view > .cmd:first-child,
 .pb-list,
 .steps {
-  border-top: 1px solid var(--rule-faint);
+  border-top: var(--w-hairline) solid var(--rule-faint);
 }
 
 .group + .group {
@@ -471,7 +561,7 @@ main:focus {
 
 .group > h2 {
   padding-bottom: var(--s-3);
-  border-bottom: 1px solid var(--rule-faint);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
 }
 
 .group > h2 a {
@@ -480,36 +570,38 @@ main:focus {
 
 .group > h2 .n {
   margin-left: var(--s-2);
+  font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 
 .empty {
   padding-block: var(--s-8);
-  color: var(--muted);
+  color: var(--ink-2);
 }
 
 /* --- Command rows -------------------------------------------------------- */
 
 .cmd {
   padding-block: var(--s-6);
-  border-bottom: 1px solid var(--rule-faint);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
   /* Hundreds of rows: let the browser skip laying out the ones off-screen. */
   content-visibility: auto;
   contain-intrinsic-size: auto 14rem;
 }
 
+/* A deep link: the row it points at gets a rule at its left edge. */
 .cmd:target {
-  border-left: 2px solid var(--line);
+  border-left: 2px solid var(--ink);
   padding-left: var(--s-4);
   margin-left: calc(-1 * var(--s-4) - 2px);
 }
 
 .cmd h3 {
   font-size: var(--fs-body);
-  font-weight: 600;
+  font-weight: 560;
   line-height: 1.4;
 }
 
@@ -525,36 +617,37 @@ main:focus {
 .cmd .desc {
   margin-top: var(--s-1);
   font-size: var(--fs-body-s);
-  color: var(--muted);
+  color: var(--ink-2);
   max-width: 70ch;
 }
 
+/* The one use of amber: a command that can do harm. */
 .caution {
   margin-top: var(--s-3);
   padding-left: var(--s-3);
-  border-left: 2px solid var(--signal);
+  border-left: 2px solid var(--sun);
   font-size: var(--fs-body-s);
   max-width: 70ch;
 }
 
 .caution strong {
-  color: var(--signal);
-  font-weight: 700;
+  color: var(--sun);
+  font-weight: 600;
 }
 
 .note {
   margin-top: var(--s-2);
   font-size: var(--fs-body-s);
-  color: var(--muted);
+  color: var(--ink-2);
   max-width: 70ch;
 }
 
 .code {
   margin-top: var(--s-3);
   padding: var(--s-3) var(--s-4);
-  background: var(--deep);
-  border: 1px solid var(--rule);
-  color: var(--line);
+  background: var(--deck);
+  border: var(--w-hairline) solid var(--rule);
+  color: var(--ink);
   font-size: var(--fs-body-s);
   line-height: 1.6;
   /* Wrap long commands rather than scroll: on a phone, sideways scrolling hides flags. */
@@ -568,13 +661,13 @@ main:focus {
 }
 
 .ph {
-  color: var(--muted);
+  color: var(--ink-2);
   text-decoration: underline dotted var(--rule);
   text-underline-offset: 0.2em;
 }
 
 .ph.filled {
-  color: var(--line);
+  color: var(--ink);
   text-decoration: underline solid var(--rule);
 }
 
@@ -594,21 +687,21 @@ main:focus {
   padding: var(--s-2) var(--s-4);
   font: inherit;
   font-size: var(--fs-micro);
-  font-weight: 600;
-  color: var(--line);
+  font-weight: 480;
+  color: var(--ink);
   background: transparent;
-  border: 1px solid var(--rule);
+  border: var(--w-hairline) solid var(--rule);
   border-radius: 0;
   text-decoration: none;
   cursor: pointer;
 }
 
 .btn:hover {
-  border-color: var(--line);
+  border-color: var(--ink);
 }
 
 .btn[aria-expanded='true'] {
-  border-color: var(--line);
+  border-color: var(--ink);
 }
 
 .tags {
@@ -626,7 +719,7 @@ main:focus {
 .fill {
   margin-top: var(--s-3);
   padding: var(--s-4);
-  border: 1px solid var(--rule-faint);
+  border: var(--w-hairline) solid var(--rule-faint);
 }
 
 .fill-grid {
@@ -652,9 +745,9 @@ main:focus {
   padding: var(--s-2) var(--s-3);
   font-family: var(--font-mono);
   font-size: 16px;
-  color: var(--line);
-  background: var(--deep);
-  border: 1px solid var(--rule);
+  color: var(--ink);
+  background: var(--deck);
+  border: var(--w-hairline) solid var(--rule);
   border-radius: 0;
 }
 
@@ -671,18 +764,22 @@ main:focus {
 
 .pb-list li {
   padding-block: var(--s-6);
-  border-bottom: 1px solid var(--rule-faint);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
 }
 
 .pb-list h2 {
   font-size: var(--fs-body);
-  font-weight: 600;
+  font-weight: 560;
 }
 
 .pb-list p {
   margin-top: var(--s-1);
   font-size: var(--fs-body-s);
-  color: var(--muted);
+  color: var(--ink-2);
+}
+
+.pb-list p.micro {
+  color: var(--ink-3);
 }
 
 .steps {
@@ -695,7 +792,7 @@ main:focus {
   counter-increment: step;
   position: relative;
   padding: var(--s-6) 0 var(--s-6) 2.5rem;
-  border-bottom: 1px solid var(--rule-faint);
+  border-bottom: var(--w-hairline) solid var(--rule-faint);
 }
 
 .steps > li::before {
@@ -703,8 +800,9 @@ main:focus {
   position: absolute;
   left: 0;
   top: var(--s-6);
-  font-weight: 700;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-body-s);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 
