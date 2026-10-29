@@ -20,8 +20,8 @@ Live: https://runbook.yashverma.cloud/
 | `tools/build.mjs` | Writes the pages below from the data, and checks the data |
 | `index.html`, `<category>/`, `playbooks/`, `404.html`, `sitemap.xml` | Generated: do not edit by hand |
 | `app.js` | Search, copy, fill-in placeholders and keyboard shortcuts on top of the pages |
-| `style.css` | All styles; the colours and type follow https://yashverma.cloud/ |
-| `fonts/` | Overpass and Overpass Mono, self-hosted (SIL OFL 1.1) |
+| `style.css` | All styles; the tokens, colours and type are copied from https://yashverma.cloud/ (the source commit is noted at the top of the file) |
+| `fonts/` | Archivo and B612 Mono, self-hosted (SIL OFL 1.1) |
 | `_headers` | Security and caching headers for Cloudflare Pages |
 
 No dependencies, and no third-party hosts except Cloudflare Web Analytics (injected by Pages; allowed in `_headers`). The generated pages are committed, so Cloudflare Pages serves the files as they are.
@@ -67,4 +67,4 @@ The runbook used to live at `yashverma-cloud.github.io/yv-cloud-runbook/`. Those
 
 ## Licence
 
-MIT. The fonts are under the SIL Open Font License 1.1 (`fonts/Overpass-LICENSE.txt`).
+MIT. The fonts are under the SIL Open Font License 1.1 (`fonts/OFL-archivo.txt`, `fonts/OFL-b612mono.txt`).
