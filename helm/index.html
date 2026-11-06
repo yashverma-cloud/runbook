@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Helm commands · Cloud runbook · Yash Verma</title>
-  <meta name="description" content="14 copy-ready Helm commands, each with what it does and a caution on the risky ones: list all releases across namespaces, rollback a release, get deployed values and more." />
+  <meta name="description" content="15 copy-ready Helm commands, each with what it does and a caution on the risky ones: list all releases across namespaces, rollback a release, get deployed values and more." />
   <link rel="canonical" href="https://runbook.yashverma.cloud/helm/" />
   <meta name="theme-color" content="#040c1f" />
   <meta name="color-scheme" content="dark" />
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Yash Verma" />
   <meta property="og:title" content="Helm commands" />
-  <meta property="og:description" content="14 copy-ready Helm commands, each with what it does and a caution on the risky ones: list all releases across namespaces, rollback a release, get deployed values and more." />
+  <meta property="og:description" content="15 copy-ready Helm commands, each with what it does and a caution on the risky ones: list all releases across namespaces, rollback a release, get deployed values and more." />
   <meta property="og:url" content="https://runbook.yashverma.cloud/helm/" />
   <meta property="og:image" content="https://runbook.yashverma.cloud/og.png" />
   <meta property="og:image:width" content="1200" />
@@ -49,15 +49,15 @@
   <main id="main" class="wrap" tabindex="-1">
     <section class="intro">
       <h1>Helm commands</h1>
-      <p class="standfirst">14 commands from the <a href="../">cloud runbook</a>. Fill in a placeholder once and every command uses it.</p>
+      <p class="standfirst">15 commands from the <a href="../">cloud runbook</a>. Fill in a placeholder once and every command uses it.</p>
     </section>
 
     <div class="search" role="search">
       <label class="visually-hidden" for="q">Search commands</label>
       <svg class="search-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-      <input id="q" type="search" placeholder="Search 284 commands" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" />
+      <input id="q" type="search" placeholder="Search 289 commands" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" />
       <div class="search-meta">
-        <p id="count" class="micro" aria-live="polite">14 commands in Helm</p>
+        <p id="count" class="micro" aria-live="polite">15 commands in Helm</p>
         <p class="micro hint"><kbd>/</kbd> to search, <kbd>Esc</kbd> to clear</p>
       </div>
     </div>
@@ -68,10 +68,10 @@
       <nav class="cats" aria-label="Categories">
         <label class="micro cat-select-label" for="cat-select">Category</label>
         <select id="cat-select">
-          <option value="../">All commands (284)</option>
+          <option value="../">All commands (289)</option>
           <option value="../kubernetes/">Kubernetes (29)</option>
-          <option value="../helm/" selected>Helm (14)</option>
-          <option value="../karpenter/">Karpenter (11)</option>
+          <option value="../helm/" selected>Helm (15)</option>
+          <option value="../karpenter/">Karpenter (13)</option>
           <option value="../aws/">AWS (25)</option>
           <option value="../gcp/">GCP (25)</option>
           <option value="../terraform/">Terraform (15)</option>
@@ -84,14 +84,14 @@
           <option value="../security/">Security (16)</option>
           <option value="../databases/">Databases (15)</option>
           <option value="../observability/">Observability (22)</option>
-          <option value="../debugging/">Debugging (11)</option>
+          <option value="../debugging/">Debugging (13)</option>
           <option value="../playbooks/">Playbooks (7)</option>
         </select>
         <ul class="cat-list">
-          <li><a href="../"><span>All commands</span><span class="n">284</span></a></li>
+          <li><a href="../"><span>All commands</span><span class="n">289</span></a></li>
           <li><a href="../kubernetes/"><span>Kubernetes</span><span class="n">29</span></a></li>
-          <li><a href="../helm/" aria-current="page"><span>Helm</span><span class="n">14</span></a></li>
-          <li><a href="../karpenter/"><span>Karpenter</span><span class="n">11</span></a></li>
+          <li><a href="../helm/" aria-current="page"><span>Helm</span><span class="n">15</span></a></li>
+          <li><a href="../karpenter/"><span>Karpenter</span><span class="n">13</span></a></li>
           <li><a href="../aws/"><span>AWS</span><span class="n">25</span></a></li>
           <li><a href="../gcp/"><span>GCP</span><span class="n">25</span></a></li>
           <li><a href="../terraform/"><span>Terraform</span><span class="n">15</span></a></li>
@@ -104,7 +104,7 @@
           <li><a href="../security/"><span>Security</span><span class="n">16</span></a></li>
           <li><a href="../databases/"><span>Databases</span><span class="n">15</span></a></li>
           <li><a href="../observability/"><span>Observability</span><span class="n">22</span></a></li>
-          <li><a href="../debugging/"><span>Debugging</span><span class="n">11</span></a></li>
+          <li><a href="../debugging/"><span>Debugging</span><span class="n">13</span></a></li>
           <li class="group-start"><a href="../playbooks/"><span>Playbooks</span><span class="n">7</span></a></li>
         </ul>
       </nav>
@@ -305,6 +305,20 @@
       <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Preview an upgrade as a diff</span></button>
       <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in 3 placeholders<span class="visually-hidden">: Preview an upgrade as a diff</span></button>
       <p class="micro tags">diff, upgrade, plugin</p>
+    </div>
+    </article>
+    <article class="cmd" id="helm-status" data-key="c:helm-status">
+      <h3><a href="#helm-status">Show a release&#39;s status</a></h3>
+      <p class="desc">Prints the release&#39;s state, last deployment time, revision and chart notes.</p>
+      
+      <pre class="code"><code><span class="w">helm</span> <span class="w">status</span> <span class="w"><span class="ph" data-ph="release-name">&lt;release-name&gt;</span></span> <span class="w">-n</span> <span class="w"><span class="ph" data-ph="namespace">&lt;namespace&gt;</span></span></code></pre>
+      
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in 2 placeholders<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <p class="micro tags">releases, status</p>
     </div>
     </article>
       </div>
