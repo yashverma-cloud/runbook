@@ -55,9 +55,9 @@
     <div class="search" role="search">
       <label class="visually-hidden" for="q">Search commands</label>
       <svg class="search-icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-      <input id="q" type="search" placeholder="Search 284 commands" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" />
+      <input id="q" type="search" placeholder="Search 289 commands" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" />
       <div class="search-meta">
-        <p id="count" class="micro" aria-live="polite">284 commands in 16 categories</p>
+        <p id="count" class="micro" aria-live="polite">289 commands in 16 categories</p>
         <p class="micro hint"><kbd>/</kbd> to search, <kbd>Esc</kbd> to clear</p>
       </div>
     </div>
@@ -68,10 +68,10 @@
       <nav class="cats" aria-label="Categories">
         <label class="micro cat-select-label" for="cat-select">Category</label>
         <select id="cat-select">
-          <option value="./" selected>All commands (284)</option>
+          <option value="./" selected>All commands (289)</option>
           <option value="kubernetes/">Kubernetes (29)</option>
-          <option value="helm/">Helm (14)</option>
-          <option value="karpenter/">Karpenter (11)</option>
+          <option value="helm/">Helm (15)</option>
+          <option value="karpenter/">Karpenter (13)</option>
           <option value="aws/">AWS (25)</option>
           <option value="gcp/">GCP (25)</option>
           <option value="terraform/">Terraform (15)</option>
@@ -84,14 +84,14 @@
           <option value="security/">Security (16)</option>
           <option value="databases/">Databases (15)</option>
           <option value="observability/">Observability (22)</option>
-          <option value="debugging/">Debugging (11)</option>
+          <option value="debugging/">Debugging (13)</option>
           <option value="playbooks/">Playbooks (7)</option>
         </select>
         <ul class="cat-list">
-          <li><a href="./" aria-current="page"><span>All commands</span><span class="n">284</span></a></li>
+          <li><a href="./" aria-current="page"><span>All commands</span><span class="n">289</span></a></li>
           <li><a href="kubernetes/"><span>Kubernetes</span><span class="n">29</span></a></li>
-          <li><a href="helm/"><span>Helm</span><span class="n">14</span></a></li>
-          <li><a href="karpenter/"><span>Karpenter</span><span class="n">11</span></a></li>
+          <li><a href="helm/"><span>Helm</span><span class="n">15</span></a></li>
+          <li><a href="karpenter/"><span>Karpenter</span><span class="n">13</span></a></li>
           <li><a href="aws/"><span>AWS</span><span class="n">25</span></a></li>
           <li><a href="gcp/"><span>GCP</span><span class="n">25</span></a></li>
           <li><a href="terraform/"><span>Terraform</span><span class="n">15</span></a></li>
@@ -104,7 +104,7 @@
           <li><a href="security/"><span>Security</span><span class="n">16</span></a></li>
           <li><a href="databases/"><span>Databases</span><span class="n">15</span></a></li>
           <li><a href="observability/"><span>Observability</span><span class="n">22</span></a></li>
-          <li><a href="debugging/"><span>Debugging</span><span class="n">11</span></a></li>
+          <li><a href="debugging/"><span>Debugging</span><span class="n">13</span></a></li>
           <li class="group-start"><a href="playbooks/"><span>Playbooks</span><span class="n">7</span></a></li>
         </ul>
       </nav>
@@ -522,7 +522,7 @@
     </article>
     </section>
     <section class="group" aria-labelledby="g-helm">
-      <h2 id="g-helm"><a href="helm/">Helm</a><span class="n">14</span></h2>
+      <h2 id="g-helm"><a href="helm/">Helm</a><span class="n">15</span></h2>
       
     <article class="cmd" id="helm-list-all" data-key="c:helm-list-all">
       <h3><a href="#helm-list-all">List all releases across namespaces</a></h3>
@@ -720,9 +720,23 @@
       <p class="micro tags">diff, upgrade, plugin</p>
     </div>
     </article>
+    <article class="cmd" id="helm-status" data-key="c:helm-status">
+      <h3><a href="#helm-status">Show a release&#39;s status</a></h3>
+      <p class="desc">Prints the release&#39;s state, last deployment time, revision and chart notes.</p>
+      
+      <pre class="code"><code><span class="w">helm</span> <span class="w">status</span> <span class="w"><span class="ph" data-ph="release-name">&lt;release-name&gt;</span></span> <span class="w">-n</span> <span class="w"><span class="ph" data-ph="namespace">&lt;namespace&gt;</span></span></code></pre>
+      
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in 2 placeholders<span class="visually-hidden">: Show a release&#39;s status</span></button>
+      <p class="micro tags">releases, status</p>
+    </div>
+    </article>
     </section>
     <section class="group" aria-labelledby="g-karpenter">
-      <h2 id="g-karpenter"><a href="karpenter/">Karpenter</a><span class="n">11</span></h2>
+      <h2 id="g-karpenter"><a href="karpenter/">Karpenter</a><span class="n">13</span></h2>
       
     <article class="cmd" id="karpenter-logs" data-key="c:karpenter-logs">
       <h3><a href="#karpenter-logs">View controller logs</a></h3>
@@ -876,6 +890,34 @@
       <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Show a NodePool&#39;s disruption settings</span></button>
       <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in placeholder<span class="visually-hidden">: Show a NodePool&#39;s disruption settings</span></button>
       <p class="micro tags">disruption, budgets, nodepools</p>
+    </div>
+    </article>
+    <article class="cmd" id="karpenter-nodeclaim-types" data-key="c:karpenter-nodeclaim-types">
+      <h3><a href="#karpenter-nodeclaim-types">Instance type, zone and capacity type per NodeClaim</a></h3>
+      <p class="desc">Lists what Karpenter launched for each NodeClaim: the instance type, the zone and whether it is spot or on-demand.</p>
+      
+      <pre class="code"><code><span class="w">kubectl</span> <span class="w">get</span> <span class="w">nodeclaims</span> <span class="w">-o</span> <span class="w">custom-columns=&#39;NAME:.metadata.name,TYPE:.metadata.labels.node\.kubernetes\.io/instance-type,ZONE:.metadata.labels.topology\.kubernetes\.io/zone,CAPACITY:.metadata.labels.karpenter\.sh/capacity-type&#39;</span></code></pre>
+      
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: Instance type, zone and capacity type per NodeClaim</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Instance type, zone and capacity type per NodeClaim</span></button>
+      
+      <p class="micro tags">nodeclaims, spot, cost</p>
+    </div>
+    </article>
+    <article class="cmd" id="karpenter-node-do-not-disrupt" data-key="c:karpenter-node-do-not-disrupt">
+      <h3><a href="#karpenter-node-do-not-disrupt">Protect a node from voluntary disruption</a></h3>
+      <p class="desc">Stops Karpenter from consolidating, drifting or expiring this node while the annotation is set.</p>
+      
+      <pre class="code"><code><span class="w">kubectl</span> <span class="w">annotate</span> <span class="w">node</span> <span class="w"><span class="ph" data-ph="node-name">&lt;node-name&gt;</span></span> <span class="w">karpenter.sh/do-not-disrupt=true</span></code></pre>
+      <p class="note">Remove it when you are done: kubectl annotate node &lt;node-name&gt; karpenter.sh/do-not-disrupt-. A protected node keeps costing money.</p>
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: Protect a node from voluntary disruption</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Protect a node from voluntary disruption</span></button>
+      <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in placeholder<span class="visually-hidden">: Protect a node from voluntary disruption</span></button>
+      <p class="micro tags">nodes, disruption, maintenance</p>
     </div>
     </article>
     </section>
@@ -3994,7 +4036,7 @@
     </article>
     </section>
     <section class="group" aria-labelledby="g-debugging">
-      <h2 id="g-debugging"><a href="debugging/">Debugging</a><span class="n">11</span></h2>
+      <h2 id="g-debugging"><a href="debugging/">Debugging</a><span class="n">13</span></h2>
       
     <article class="cmd" id="debug-strace" data-key="c:debug-strace">
       <h3><a href="#debug-strace">Trace system calls of a process</a></h3>
@@ -4148,6 +4190,34 @@
       <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Find out-of-memory kills</span></button>
       
       <p class="micro tags">oom, memory, kernel</p>
+    </div>
+    </article>
+    <article class="cmd" id="debug-kubectl-node" data-key="c:debug-kubectl-node">
+      <h3><a href="#debug-kubectl-node">Open a shell on a node</a></h3>
+      <p class="desc">Starts a debug pod on the node with the node&#39;s filesystem mounted at /host; useful when SSH and SSM are not available.</p>
+      <p class="caution"><strong>Caution.</strong> The pod can read the node&#39;s whole filesystem under /host, including kubelet credentials. Use it only on nodes you may inspect, and delete the debug pod afterwards (kubectl get pods lists it as node-debugger-...).</p>
+      <pre class="code"><code><span class="w">kubectl</span> <span class="w">debug</span> <span class="w">node/<span class="ph" data-ph="node-name">&lt;node-name&gt;</span></span> <span class="w">-it</span> <span class="w">--image=busybox:1.36</span></code></pre>
+      <p class="note">Run chroot /host for the node&#39;s own tools.</p>
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: Open a shell on a node</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: Open a shell on a node</span></button>
+      <button type="button" class="btn" data-act="fill" aria-expanded="false">Fill in placeholder<span class="visually-hidden">: Open a shell on a node</span></button>
+      <p class="micro tags">kubernetes, nodes, shell</p>
+    </div>
+    </article>
+    <article class="cmd" id="debug-pidstat" data-key="c:debug-pidstat">
+      <h3><a href="#debug-pidstat">CPU, memory and disk I/O per process</a></h3>
+      <p class="desc">Samples every process&#39;s CPU, memory and disk use every 2 seconds, 5 times; finds the process behind a busy host.</p>
+      
+      <pre class="code"><code><span class="w">pidstat</span> <span class="w">-u</span> <span class="w">-r</span> <span class="w">-d</span> <span class="w">2</span> <span class="w">5</span></code></pre>
+      <p class="note">Part of the sysstat package.</p>
+      
+    <div class="actions">
+      <button type="button" class="btn" data-act="copy">Copy<span class="visually-hidden">: CPU, memory and disk I/O per process</span></button>
+      <button type="button" class="btn" data-act="link">Copy link<span class="visually-hidden">: CPU, memory and disk I/O per process</span></button>
+      
+      <p class="micro tags">performance, processes, sysstat</p>
     </div>
     </article>
     </section>
